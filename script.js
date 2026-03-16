@@ -1,25 +1,14 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-    const signUpBtn = document.getElementById('signUpBtn');
-    const signInBtn = document.getElementById('signInBtn');
+    const bubbles = document.querySelectorAll('.user-bubble');
 
-    // Button Click Logic
-    signUpBtn.addEventListener('click', () => {
-        console.log("Redirecting to Sign Up...");
-        // Future Logic: Show Sign-up Modal
-    });
-
-    signInBtn.addEventListener('click', () => {
-        console.log("Opening Sign In Modal...");
-        // Future Logic: Show Login Modal
-    });
-
-    // Optional: Add a subtle parallax effect to bubbles based on mouse movement
+    // Smooth Parallax for Bubbles
     document.addEventListener('mousemove', (e) => {
-        const moveX = (e.clientX - window.innerWidth / 2) / 50;
-        const moveY = (e.clientY - window.innerHeight / 2) / 50;
-        
-        document.querySelector('.bubble-container').style.transform = 
-            `translate(${moveX}px, ${moveY}px)`;
+        const x = (window.innerWidth - e.pageX * 2) / 100;
+        const y = (window.innerHeight - e.pageY * 2) / 100;
+
+        bubbles.forEach(bubble => {
+            bubble.style.transform = `translateX(${x}px) translateY(${y}px)`;
+        });
     });
 });
+
