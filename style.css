@@ -1,10 +1,3 @@
-:root {
-    --primary-purple: rgba(157, 78, 221, 0.2);
-    --bright-purple: #9d4edd;
-    --text-white: #ffffff;
-    --bg-black: #050505;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -12,117 +5,120 @@
 }
 
 body {
-    background: radial-gradient(circle at center, #120520 0%, #050505 100%);
-    color: var(--text-white);
+    background: #050505;
+    background: radial-gradient(circle at center, #1a0b2e 0%, #050505 100%);
     font-family: 'Inter', sans-serif;
     height: 100vh;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    color: white;
 }
 
-/* --- THE BIG TRANSPARENT LOGO --- */
-.logo-transparent {
-    font-size: clamp(5rem, 20vw, 12rem); /* Massive scaling */
-    font-weight: 900;
-    letter-spacing: -5px;
-    line-height: 0.8;
-    color: rgba(255, 255, 255, 0.03); /* Very transparent */
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1); /* Subtle outline */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    pointer-events: none;
-    text-transform: lowercase;
-}
-
-/* --- CONTENT LAYER --- */
-.content-wrapper {
-    position: relative;
-    z-index: 10;
+/* --- THE CENTERPIECE --- */
+.hero {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    z-index: 10;
+    width: 100%;
 }
 
-.tagline-container {
-    margin-bottom: 2.5rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+.big-logo {
+    font-size: clamp(6rem, 25vw, 15rem);
+    font-weight: 900;
+    letter-spacing: -8px;
+    color: rgba(255, 255, 255, 0.07); /* Solid but transparent */
+    margin-bottom: -20px;
+    user-select: none;
+}
+
+.tagline-stack {
+    margin-bottom: 40px;
+}
+
+.main-tag {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
 }
 
 .sub-tag {
-    font-size: 0.9rem;
-    color: var(--bright-purple);
-    margin-top: 10px;
-    opacity: 0.8;
+    font-size: 0.8rem;
+    color: #9d4edd;
     text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 600;
 }
 
-/* --- GLASS BUTTONS --- */
-.btn-group {
+/* --- BUTTONS: TRUE GLASSMORPHISM --- */
+.actions {
     display: flex;
+    justify-content: center;
     gap: 20px;
 }
 
-.btn {
-    padding: 18px 40px;
-    border-radius: 15px;
+.glass-btn {
+    padding: 16px 45px;
+    border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
-.btn-glass-primary {
-    background: rgba(157, 78, 221, 0.15);
-    border: 1px solid rgba(157, 78, 221, 0.3);
+.primary {
+    background: rgba(157, 78, 221, 0.2);
+    border: 1px solid rgba(157, 78, 221, 0.4);
     color: white;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.1);
 }
 
-.btn-glass-outline {
+.secondary {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
 }
 
-.btn:hover {
-    transform: scale(1.05);
-    background: rgba(157, 78, 221, 0.3);
-    border-color: var(--bright-purple);
+.glass-btn:hover {
+    transform: translateY(-5px);
+    background: rgba(157, 78, 221, 0.4);
+    border-color: #9d4edd;
 }
 
-/* --- BUBBLES --- */
+/* --- THE USER BUBBLES --- */
 .user-bubble {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(157, 78, 221, 0.3);
-    object-fit: cover;
-    animation: float 10s ease-in-out infinite;
-    z-index: 1; /* Sits behind the main content */
+    border: 1px solid rgba(157, 78, 221, 0.5);
+    animation: bounce 12s infinite ease-in-out;
+    filter: brightness(0.8);
+    transition: 0.5s;
+    z-index: 1;
 }
 
-.b1 { width: 100px; height: 100px; top: 10%; left: 10%; animation-delay: 0s; }
-.b2 { width: 140px; height: 140px; bottom: 10%; left: 5%; animation-delay: 2s; }
-.b3 { width: 80px; height: 80px; top: 15%; right: 10%; animation-delay: 4s; }
-.b4 { width: 120px; height: 120px; bottom: 15%; right: 5%; animation-delay: 6s; }
+.user-bubble:hover {
+    filter: brightness(1.2);
+    transform: scale(1.1);
+}
 
-@keyframes float {
+.b1 { width: 120px; height: 120px; top: 10%; left: 15%; animation-delay: 0s; }
+.b2 { width: 150px; height: 150px; bottom: 10%; left: 8%; animation-delay: 2s; }
+.b3 { width: 90px; height: 90px; top: 15%; right: 12%; animation-delay: 4s; }
+.b4 { width: 130px; height: 130px; bottom: 12%; right: 10%; animation-delay: 6s; }
+
+@keyframes bounce {
     0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(20px, -40px); }
+    33% { transform: translate(30px, -50px); }
+    66% { transform: translate(-20px, 20px); }
 }
 
-@media (max-width: 768px) {
-    .logo-transparent { font-size: 6rem; }
-    .btn-group { flex-direction: column; width: 280px; }
-    .btn { width: 100%; }
+@media (max-width: 600px) {
+    .actions { flex-direction: column; padding: 0 40px; }
+    .big-logo { font-size: 5rem; letter-spacing: -2px; }
+    .main-tag { font-size: 1.1rem; }
 }
