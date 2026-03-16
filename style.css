@@ -1,9 +1,11 @@
 :root {
     --primary-purple: #9d4edd;
     --deep-purple: #5a189a;
-    --bg-black: #0a0a0a;
-    --glass: rgba(255, 255, 255, 0.05);
-    --text-white: #f8f9fa;
+    --bg-black: #060606;
+    /* High-end Glassmorphism values */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-white: #ffffff;
 }
 
 * {
@@ -13,7 +15,7 @@
 }
 
 body {
-    background: radial-gradient(circle at center, #1a0a2e 0%, #0a0a0a 100%);
+    background: radial-gradient(circle at top right, #1a0a2e 0%, #060606 100%);
     color: var(--text-white);
     font-family: 'Inter', sans-serif;
     height: 100vh;
@@ -23,106 +25,86 @@ body {
     justify-content: center;
 }
 
-/* --- BUBBLE ANIMATIONS --- */
-.bubble-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+/* --- GLASS CARD --- */
+.glass-card {
+    position: relative;
+    z-index: 10;
+    padding: 3rem;
+    border-radius: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px); /* The secret sauce for Glassmorphism */
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
 }
 
+/* --- BUBBLES (Always showing 4) --- */
 .user-bubble {
     position: absolute;
     border-radius: 50%;
     border: 2px solid var(--primary-purple);
-    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
     object-fit: cover;
-    animation: float 8s ease-in-out infinite;
-    transition: 0.4s ease;
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
 }
 
-.user-bubble:hover {
-    transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 0 35px var(--primary-purple);
-    cursor: pointer;
-    z-index: 50;
-}
-
-/* Unique Positions for the bubbles */
-.b1 { width: 80px; height: 80px; top: 15%; left: 10%; animation-delay: 0s; }
-.b2 { width: 120px; height: 120px; top: 60%; left: 15%; animation-delay: 2s; }
-.b3 { width: 60px; height: 60px; top: 20%; right: 20%; animation-delay: 4s; }
-.b4 { width: 100px; height: 100px; bottom: 15%; right: 10%; animation-delay: 1s; }
-.b5 { width: 70px; height: 70px; top: 50%; right: 30%; animation-delay: 5s; }
+/* Better positions to ensure they don't hide behind the card too much */
+.b1 { width: 90px; height: 90px; top: 10%; left: 15%; animation-delay: 0s; }
+.b2 { width: 110px; height: 110px; top: 70%; left: 10%; animation-delay: 1.5s; }
+.b3 { width: 75px; height: 75px; top: 15%; right: 15%; animation-delay: 3s; }
+.b4 { width: 95px; height: 95px; top: 65%; right: 12%; animation-delay: 4.5s; }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-30px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
 }
 
-/* --- HERO TEXT --- */
-.hero-section {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 20px;
-}
-
+/* --- LOGO & BUTTONS --- */
 .logo {
-    font-size: clamp(3rem, 10vw, 5rem);
+    font-size: 3.5rem;
     font-weight: 900;
     letter-spacing: -3px;
-    background: linear-gradient(to bottom, #fff, var(--primary-purple));
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to bottom, #ffffff, var(--primary-purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .tagline {
-    font-size: 1.1rem;
-    color: #888;
-    margin-bottom: 30px;
+    color: #a0a0a0;
+    margin-bottom: 2.5rem;
 }
 
-/* --- BUTTONS --- */
 .btn-group {
     display: flex;
-    gap: 15px;
-    justify-content: center;
+    gap: 1rem;
 }
 
 .btn {
-    padding: 15px 35px;
+    flex: 1;
+    padding: 1rem;
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     border: none;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.3s;
 }
 
-.btn-primary {
-    background: var(--primary-purple);
-    color: white;
+.btn-primary { background: var(--primary-purple); color: white; }
+.btn-outline { 
+    background: transparent; 
+    border: 1px solid var(--glass-border); 
+    color: white; 
 }
 
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(157, 78, 221, 0.4);
-}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.2); }
 
-.btn-outline {
-    background: var(--glass);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-.btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-3px);
-}
-
-/* Mobile Tweak */
 @media (max-width: 600px) {
     .btn-group { flex-direction: column; }
-    .user-bubble:not(.b1):not(.b4) { display: none; }
+    .glass-card { padding: 2rem; }
+    /* Scales bubbles down for mobile so they don't clutter */
+    .user-bubble { width: 60px; height: 60px; }
 }
